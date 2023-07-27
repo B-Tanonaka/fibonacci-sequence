@@ -3,16 +3,14 @@
   "version": "1.0.0",
   "main": "server/index.ts",
   "scripts": {
-    "start": "nodemon server/index.ts",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/B-Tanonaka/fibonacci-sequence.git"
+    "start": "nodemon server/index.ts"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "typescript": "^5.1.6"
+    "typescript": "^5.1.6",
+    "html-webpack-plugin": "^5.5.3",
+    "webpack": "^5.88.2",
+    "webpack-cli": "^5.1.4"
   }
 }
