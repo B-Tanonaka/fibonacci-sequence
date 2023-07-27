@@ -11,6 +11,6 @@
     "resolveJsonModule": true,
     "strict": true,
     "noEmit": false,
-    "declaration": true,
-  }
+    "declaration": true
+  },
 }
