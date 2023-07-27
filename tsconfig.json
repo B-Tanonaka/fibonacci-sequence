@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "target": "ES6",
+    "module": "commonjs",
+    "lib": ["ES6", "DOM"],
+    "sourceMap": true,
+    "esModuleInterop": true,
+    "outDir": "./client/build",
+    "jsx": "react",
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "strict": true,
+    "noEmit": false,
+    "declaration": true,
+  }
+}

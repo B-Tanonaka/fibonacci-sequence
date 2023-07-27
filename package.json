@@ -11,5 +11,8 @@
     "url": "git+https://github.com/B-Tanonaka/fibonacci-sequence.git"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "typescript": "^5.1.6"
+  }
 }
