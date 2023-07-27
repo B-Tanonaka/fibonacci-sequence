@@ -1,7 +1,7 @@
 import path from 'path';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 
-export default {
+module.exports = {
   mode: 'development',
   entry: path.join(__dirname, './client/src/index.tsx'),
   output: {
