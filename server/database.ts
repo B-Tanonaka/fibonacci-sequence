@@ -5,7 +5,7 @@ const connection = mysql.createPool({
   host: 'localhost',
   user: 'root',
   password: '',
-  database: 'fibonacci-sequence',
+  database: 'fibonacci',
 });
 
 const db = Promise.promisifyAll(connection);
