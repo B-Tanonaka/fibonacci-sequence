@@ -1,7 +1,7 @@
 import express from 'express';
 import path from 'path';
 import cors from 'cors';
-import { getAll, getValueAtN, postOneValue } from './controller';
+import router from './router';
 
 require('dotenv').config();
 
@@ -14,8 +14,6 @@ app.use(express.json());
 
 app.use(express.static(path.join(__dirname, '../client/dist')));
 
-app.get('/fibonacci', getAll);
-app.get('/fibonacci', getValueAtN);
-app.post('/fibonacci', postOneValue);
+app.use('/', router);
 
 app.listen(PORT, () => { console.log(`Server active on port ${PORT}`); });
