@@ -1,5 +1,8 @@
 import React from 'react';
+import NumberInput from './NumberInput';
 
 export default function App() {
-  return <div>Hello world</div>;
+  return (
+    <NumberInput />
+  );
 }
