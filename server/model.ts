@@ -14,7 +14,7 @@ export const getValueRange = async (start: string, end: string) => {
   return rows.map((row) => (row.current));
 };
 
-export const saveValue = async (values: DataRow[]) => {
+export const saveValue = async (values: number[][]) => {
   const q = 'INSERT INTO fibonacci (n, current, previous) VALUES ?';
   return db.query(q, [values]);
 };

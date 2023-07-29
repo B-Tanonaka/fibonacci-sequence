@@ -46,6 +46,16 @@ export const calculateData: RequestHandler = async (req, res) => {
         highestVal.current,
       );
       const mergedData = existingData.concat(newData);
+      // Writing new data to database
+      const startingN = Number(highestVal.n) + 1;
+      const newDatabaseEntries = newData.map((currVal, i) => {
+        const currN = startingN + i;
+        let prevVal = newData[i - 1];
+        if (i === 0) { prevVal = existingData[existingData.length - 1]; }
+        return [currN, currVal, prevVal];
+      });
+      saveValue(newDatabaseEntries);
+      res.status(200).send(mergedData);
     }
   } catch (err) {
     res.status(502).send(err);
