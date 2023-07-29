@@ -1,7 +1,7 @@
 import { RequestHandler } from 'express';
 import { getMaxValue, getValueRange, saveValue } from './model';
 
-// Calculate Fibonacci sequence helper function
+// Calculate Fibonacci sequence helper function, base algorithm from StackOverflow
 const calculateFibonacci = (
   input: number,
   dataExists: boolean,
