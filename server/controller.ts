@@ -1,6 +1,7 @@
 import { RequestHandler } from 'express';
 import { getMaxValue, getValueRange, saveValue } from './model';
 
+// Calculate Fibonacci sequence helper function
 const calculateFibonacci = (
   input: number,
   dataExists: boolean,
@@ -8,9 +9,7 @@ const calculateFibonacci = (
   curr: number = 1,
 ) => {
   const arr = [];
-  if (curr === 1) { arr.push(0); }
-  if (curr <= 2) { arr.push(1); }
-  while (input > 0) {
+  while (input >= 0) {
     const next = prev + curr;
     if (dataExists) {
       arr.push(next);
@@ -26,27 +25,18 @@ const calculateFibonacci = (
 
 const calculateData: RequestHandler = async (req, res) => {
   try {
-    // Find the highest current value
+    // Find the highest current value and checking existing data
     const n = req.query.n as string;
     const data = await getMaxValue();
     const highestVal = data[0][0] || { n: 0, current: 1, previous: 0 };
+    const existingData = await getValueRange('0', highestVal.n);
+    // Declaring variables fo the writeToDatabase function
+    let newData: number[] = [];
+    let startingN = 0;
 
-    // If values up to the input are already in the database, return up to that number
-    if (Number(n) < highestVal.n) {
-      const response = await getValueRange('0', n);
-      res.status(200).send(response);
-    // If they are not, find the highest n and calculate up to the input
-    } else {
-      const existingData = await getValueRange('0', highestVal.n);
-      const newData = calculateFibonacci(
-        Number(n) - highestVal.n,
-        true,
-        highestVal.previous,
-        highestVal.current,
-      );
-      const mergedData = existingData.concat(newData);
-      // Writing new data to database
-      const startingN = Number(highestVal.n) + 1;
+    // Writing new data to database helper function
+    const writeToDatabase = () => {
+      if (highestVal.n > 0) { startingN = Number(highestVal.n) + 1; }
       const newDatabaseEntries = newData.map((currVal, i) => {
         const currN = startingN + i;
         let prevVal = newData[i - 1];
@@ -54,7 +44,29 @@ const calculateData: RequestHandler = async (req, res) => {
         return [currN, currVal, prevVal];
       });
       saveValue(newDatabaseEntries);
+    };
+    // If there are no entries in the database, calculate new values
+    if (highestVal.n === 0) {
+      newData = calculateFibonacci(Number(n), false, 0, 1);
+      writeToDatabase();
+      res.status(200).send(newData);
+    // If values up to the input are already in the database, return up to that number
+    } else if (Number(n) <= highestVal.n) {
+      console.log('in middle here');
+      const response = await getValueRange('0', n);
+      res.status(200).send(response);
+    // If there are current entries in the database find the highest n and calculate up to the input
+    } else {
+      console.log('in write new');
+      newData = calculateFibonacci(
+        Number(n) - highestVal.n - 1,
+        true,
+        highestVal.previous,
+        highestVal.current,
+      );
+      const mergedData = existingData.concat(newData);
       res.status(200).send(mergedData);
+      writeToDatabase();
     }
   } catch (err) {
     res.status(502).send(err);
