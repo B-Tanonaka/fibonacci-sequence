@@ -2,6 +2,29 @@ import { RequestHandler } from 'express';
 import { DataRow } from '../interfaces';
 import { getMaxValue, getValueRange, saveValue } from './model';
 
+const calculateFibonacci = (
+  input: number,
+  dataExists: boolean,
+  prev: number = 0,
+  curr: number = 1,
+) => {
+  const arr = [];
+  if (curr === 1) { arr.push(0); }
+  if (curr <= 2) { arr.push(1); }
+  while (input > 0) {
+    const next = prev + curr;
+    if (dataExists) {
+      arr.push(next);
+    } else {
+      arr.push(prev);
+    }
+    prev = curr;
+    curr = next;
+    input -= 1;
+  }
+  return arr;
+};
+
 export const calculateData: RequestHandler = (req, res) => {
   const n = req.query.n as string;
   getMaxValue()
