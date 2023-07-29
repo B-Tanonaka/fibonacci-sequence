@@ -25,14 +25,31 @@ const calculateFibonacci = (
   return arr;
 };
 
-export const calculateData: RequestHandler = (req, res) => {
+export const calculateData: RequestHandler = async (req, res) => {
   try {
     // Find the highest current value
     const n = req.query.n as string;
     const data = await getMaxValue();
     const highestVal = data[0][0] || { n: 0, current: 1, previous: 0 };
+
+    // If values up to the input are already in the database, return up to that number
+    if (Number(n) < highestVal.n) {
+      const response = await getValueRange('0', n);
+      res.status(200).send(response);
+    // If they are not, find the highest n and calculate up to the input
+    } else {
+      const existingData = await getValueRange('0', highestVal.n);
+      const newData = calculateFibonacci(
+        Number(n) - highestVal.n,
+        true,
+        highestVal.previous,
+        highestVal.current,
+      );
+      const mergedData = existingData.concat(newData);
+    }
   } catch (err) {
     res.status(502).send(err);
+  // If they are not, find the highest n and calculate up to the input
   }
 };
 
