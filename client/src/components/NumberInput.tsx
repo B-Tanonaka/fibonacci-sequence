@@ -1,4 +1,6 @@
 import React, { useState, FormEvent } from 'react';
+import { DataRow } from '../../../interfaces';
+import axios from 'axios';
 
 export default function NumberInput() {
   const [fibN, setFibN] = useState<number | string>('');

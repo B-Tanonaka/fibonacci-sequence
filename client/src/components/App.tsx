@@ -3,6 +3,9 @@ import NumberInput from './NumberInput';
 
 export default function App() {
   return (
-    <NumberInput />
+    <>
+      <h1>Fibonacci Sequence</h1>
+      <NumberInput />
+    </>
   );
 }

@@ -2,6 +2,17 @@ import { RequestHandler } from 'express';
 import { DataRow } from '../interfaces';
 import { getMaxValue, getValueRange, saveValue } from './model';
 
+export const calculateData: RequestHandler = (req, res) => {
+  const n = req.query.n as string;
+  getMaxValue()
+    .then((data) => {
+      if (Number(n) < data[0][0].n) {
+        getValueRange('0', n)
+          .then((response) => res.status(200).send(response[0]));
+      }
+    });
+};
+
 export const getMaxN: RequestHandler = (req, res) => {
   getMaxValue()
     .then((data) => { res.status(200).send(data[0][0]); })
