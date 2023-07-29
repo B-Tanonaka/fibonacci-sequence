@@ -12,16 +12,12 @@ export default function NumberInput({ setList }: { setList: Dispatch<SetStateAct
   const [fibN, setFibN] = useState<number | string>('');
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const dataRequest = async () => {
-      try {
-        const res = await axios.get('/fibonacci', { params: { n: fibN } });
-        setList(res.data);
-      } catch (err: Error | AxiosError) {
-          console.log(err.response.data.error);
-        }
-      }
-    };
-    navigate('/list');
+    axios.get('/fibonacci', { params: { n: fibN } })
+      .then(({ data }) => {
+        setList(data);
+        navigate('/list');
+      })
+      .catch((err) => { console.log(err); });
   };
   return (
     <form onSubmit={handleSubmit}>

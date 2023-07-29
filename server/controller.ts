@@ -30,11 +30,11 @@ const calculateData: RequestHandler = async (req, res) => {
     const data = await getMaxValue();
     const highestVal = data[0][0] || { n: 0, current: 1, previous: 0 };
     const existingData = await getValueRange('0', highestVal.n);
-    // Declaring variables fo the writeToDatabase function
+    // Declaring variables for the writeToDatabase function
     let newData: number[] = [];
     let startingN = 0;
 
-    // Writing new data to database helper function
+    // Writing new data to database function, converted for loop to map with help from ChatGPT
     const writeToDatabase = () => {
       if (highestVal.n > 0) { startingN = Number(highestVal.n) + 1; }
       const newDatabaseEntries = newData.map((currVal, i) => {
