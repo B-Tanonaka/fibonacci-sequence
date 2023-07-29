@@ -8,7 +8,7 @@ export default function App() {
     <>
       <h1>Fibonacci Sequence</h1>
       <NumberInput setList={setList} />
-      <DisplayNumbers />
+      <DisplayNumbers list={list} />
     </>
   );
 }
