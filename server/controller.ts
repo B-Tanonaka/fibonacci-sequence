@@ -52,12 +52,10 @@ const calculateData: RequestHandler = async (req, res) => {
       res.status(200).send(newData);
     // If values up to the input are already in the database, return up to that number
     } else if (Number(n) <= highestVal.n) {
-      console.log('in middle here');
       const response = await getValueRange('0', n);
       res.status(200).send(response);
     // If there are current entries in the database find the highest n and calculate up to the input
     } else {
-      console.log('in write new');
       newData = calculateFibonacci(
         Number(n) - highestVal.n - 1,
         true,
