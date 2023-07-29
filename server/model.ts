@@ -1,5 +1,4 @@
 import { RowDataPacket } from 'mysql2';
-import { DataRow } from '../interfaces';
 import db from './database';
 
 export const getMaxValue = async () => {

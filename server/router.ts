@@ -1,4 +1,4 @@
-import { calculateData } from './controller';
+import calculateData from './controller';
 
 const router = require('express').Router();
 
