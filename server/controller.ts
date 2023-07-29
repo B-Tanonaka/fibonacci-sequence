@@ -26,14 +26,14 @@ const calculateFibonacci = (
 };
 
 export const calculateData: RequestHandler = (req, res) => {
-  const n = req.query.n as string;
-  getMaxValue()
-    .then((data) => {
-      if (Number(n) < data[0][0].n) {
-        getValueRange('0', n)
-          .then((response) => res.status(200).send(response[0]));
-      }
-    });
+  try {
+    // Find the highest current value
+    const n = req.query.n as string;
+    const data = await getMaxValue();
+    const highestVal = data[0][0] || { n: 0, current: 1, previous: 0 };
+  } catch (err) {
+    res.status(502).send(err);
+  }
 };
 
 export const getMaxN: RequestHandler = (req, res) => {

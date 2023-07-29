@@ -12,3 +12,7 @@ node_modules/
 
 # dotenv environment variable files
 .env
+
+# bundle/build
+client/build/
+bundle.js
