@@ -10,7 +10,8 @@ export const getMaxValue = async () => {
 
 export const getValueRange = async (start: string, end: string) => {
   const q = `SELECT n, current, previous FROM fibonacci WHERE n BETWEEN ${start} and ${end}`;
-  return db.query(q);
+  const [rows] = await db.query<RowDataPacket[]>(q);
+  return rows.map((row) => (row.current));
 };
 
 export const saveValue = async (values: DataRow[]) => {
