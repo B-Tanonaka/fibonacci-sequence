@@ -1,11 +1,17 @@
-import React, { useState, FormEvent } from 'react';
-import { DataRow } from '../../../interfaces';
+import React, {
+  useState,
+  FormEvent,
+  SetStateAction,
+  Dispatch,
+} from 'react';
 import axios from 'axios';
 
-export default function NumberInput() {
+export default function NumberInput({ setList }: { setList: Dispatch<SetStateAction<any>> }) {
   const [fibN, setFibN] = useState<number | string>('');
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const res = await axios.get('/fibonacci', { params: { n: fibN } });
+    setList(res.data);
   };
   return (
     <form onSubmit={handleSubmit}>
