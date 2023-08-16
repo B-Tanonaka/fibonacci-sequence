@@ -16,7 +16,7 @@ Installation
         npm build
         npm start
 
-- Open the appliation on http://localhost:3000
+- Open the application on http://localhost:3000
 
 ## Tech stack
 - Database - MySQL
